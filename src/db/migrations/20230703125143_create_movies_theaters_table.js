@@ -11,7 +11,7 @@ exports.up = function (knex) {
       .references('theaters.theater_id')
       .onDelete('CASCADE');
     table.boolean('is_showing').defaultTo(false);
-    table.primary(['movie_id', 'theater_id']);
+    // table.primary(['movie_id', 'theater_id']);
     table.timestamps(true, true);
   });
 };
