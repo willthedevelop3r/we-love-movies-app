@@ -17,7 +17,6 @@ async function update(updatedReview) {
     )
     .then((reviews) => {
       return reviews.map((review) => ({
-        // Restructure each review to have a nested critic object
         ...review,
         critic: {
           critic_id: review.critic_id,
@@ -29,7 +28,7 @@ async function update(updatedReview) {
         },
       }));
     })
-    .then((data) => data[0]); // Returns the first review object in the array
+    .then((data) => data[0]);
 }
 
 async function destroy(reviewId) {
