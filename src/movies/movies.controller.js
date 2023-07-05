@@ -7,8 +7,7 @@ async function list(req, res, next) {
 }
 
 async function read(req, res, next) {
-  const { movieId } = req.params;
-  const data = await service.getMovieById(movieId);
+  const data = await service.getMovieById(req.params.movieId);
   if (!data) {
     return next({
       status: 404,
@@ -18,15 +17,13 @@ async function read(req, res, next) {
   res.json({ data: data });
 }
 
-async function getMovieTheaters(req, res, next) {
-  const { movieId } = req.params;
-  const data = await service.getMovieTheaters(movieId);
+async function getMovieTheaters(req, res) {
+  const data = await service.getMovieTheaters(req.params.movieId);
   res.json({ data: data });
 }
 
-async function getMovieReviews(req, res, next) {
-  const { movieId } = req.params;
-  const data = await service.getMovieReviews(movieId);
+async function getMovieReviews(req, res) {
+  const data = await service.getMovieReviews(req.params.movieId);
   res.json({ data: data });
 }
 

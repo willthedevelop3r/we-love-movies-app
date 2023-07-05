@@ -1,4 +1,5 @@
 const knex = require('../db/connection');
+const mapProperties = require('../utils/map-properties');
 
 function getAllMovies(is_showing) {
   const query = knex('movies').select('movies.*');
@@ -33,16 +34,9 @@ function getMovieReviews(movieId) {
     .select('reviews.*', 'critics.*')
     .join('critics', 'reviews.critic_id', 'critics.critic_id')
     .where('reviews.movie_id', movieId)
-    .then((reviews) => {
-      // Format the reviews response to include critic details
-      return reviews.map((review) => ({
-        review_id: review.review_id,
-        content: review.content,
-        score: review.score,
-        created_at: review.created_at,
-        updated_at: review.updated_at,
-        critic_id: review.critic_id,
-        movie_id: review.movie_id,
+    .then((reviews) =>
+      reviews.map((review) => ({
+        ...review,
         critic: {
           critic_id: review.critic_id,
           preferred_name: review.preferred_name,
@@ -51,7 +45,11 @@ function getMovieReviews(movieId) {
           created_at: review.created_at,
           updated_at: review.updated_at,
         },
-      }));
+      }))
+    )
+    .catch((error) => {
+      console.error('Error retrieving movie reviews:', error);
+      throw error;
     });
 }
 

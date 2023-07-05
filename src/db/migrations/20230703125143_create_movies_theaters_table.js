@@ -1,17 +1,14 @@
 exports.up = function (knex) {
   return knex.schema.createTable('movies_theaters', (table) => {
+    table.increments('id').primary();
+    table.integer('movie_id').unsigned().notNullable();
+    table.foreign('movie_id').references('movies.movie_id').onDelete('CASCADE');
+    table.integer('theater_id').unsigned().notNullable();
     table
-      .integer('movie_id')
-      .unsigned()
-      .references('movies.movie_id')
-      .onDelete('CASCADE');
-    table
-      .integer('theater_id')
-      .unsigned()
+      .foreign('theater_id')
       .references('theaters.theater_id')
       .onDelete('CASCADE');
-    table.boolean('is_showing').defaultTo(false);
-    // table.primary(['movie_id', 'theater_id']);
+    table.boolean('is_showing').notNullable().defaultTo(false);
     table.timestamps(true, true);
   });
 };

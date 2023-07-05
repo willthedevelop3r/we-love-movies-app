@@ -3,14 +3,11 @@ exports.up = function (knex) {
     table.increments('review_id').primary();
     table.text('content');
     table.integer('score');
+    table.integer('movie_id').unsigned().notNullable();
+    table.foreign('movie_id').references('movies.movie_id').onDelete('CASCADE');
+    table.integer('critic_id').unsigned().notNullable();
     table
-      .integer('movie_id')
-      .unsigned()
-      .references('movies.movie_id')
-      .onDelete('CASCADE');
-    table
-      .integer('critic_id')
-      .unsigned()
+      .foreign('critic_id')
       .references('critics.critic_id')
       .onDelete('CASCADE');
     table.timestamps(true, true);
