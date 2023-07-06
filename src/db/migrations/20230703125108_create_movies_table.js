@@ -1,3 +1,4 @@
+// ------- CREATES 'MOVIES' TABLE ------- //
 exports.up = function (knex) {
   return knex.schema.createTable('movies', (table) => {
     table.increments('movie_id').primary();
@@ -10,6 +11,7 @@ exports.up = function (knex) {
   });
 };
 
+// ------- DROPS 'MOVIES' TABLE ------- //
 exports.down = function (knex) {
   return knex.schema.dropTable('movies');
 };
