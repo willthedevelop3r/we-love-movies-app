@@ -24,7 +24,7 @@ async function update(req, res) {
 
   const data = await service.update(updatedReview);
 
-  res.status(200).json({ data });
+  res.status(200).json({ data: data });
 }
 
 async function destroy(req, res) {

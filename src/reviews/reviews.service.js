@@ -1,5 +1,4 @@
 const knex = require('../db/connection');
-const mapProperties = require('../utils/map-properties');
 
 async function read(reviewId) {
   return knex('reviews').select('*').where({ review_id: reviewId }).first();
@@ -15,8 +14,8 @@ async function update(updatedReview) {
         .join('critics', 'reviews.critic_id', 'critics.critic_id')
         .where({ 'reviews.review_id': updatedReview.review_id })
     )
-    .then((reviews) => {
-      return reviews.map((review) => ({
+    .then((reviews) =>
+      reviews.map((review) => ({
         ...review,
         critic: {
           critic_id: review.critic_id,
@@ -26,8 +25,8 @@ async function update(updatedReview) {
           created_at: review.created_at,
           updated_at: review.updated_at,
         },
-      }));
-    })
+      }))
+    )
     .then((data) => data[0]);
 }
 
