@@ -12,7 +12,7 @@ async function reviewExists(req, res, next) {
     });
   }
 
-  res.locals.review = review;
+  res.locals.review = review; // SET RES.LOCALS.REVIEW
   next();
 }
 
