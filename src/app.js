@@ -9,7 +9,7 @@ const theatersRouter = require('./theaters/theaters.router');
 
 if (process.env.USER) require('dotenv').config();
 
-// ------- MIDDLEWARE ------- //
+// ------- MIDDLEWARE FOR JSON PARSING AND CORS HANDLING ------- //
 app.use(express.json());
 app.use(cors());
 
