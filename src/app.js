@@ -13,6 +13,10 @@ if (process.env.USER) require('dotenv').config();
 app.use(express.json());
 app.use(cors());
 
+app.get('/', (req, res) => {
+  res.sendStatus(200);
+});
+
 // ------- ROUTES -------- //
 app.use('/movies', moviesRouter);
 app.use('/reviews', reviewsRouter);
