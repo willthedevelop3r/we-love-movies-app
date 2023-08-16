@@ -2,7 +2,7 @@ const router = require('express').Router({ mergeParams: true });
 const controller = require('./movies.controller');
 const methodNotAllowed = require('../errors/methodNotAllowed');
 
-// ------- ROUTES FOR MOVIES ------- //
+// Routes for movies
 router
   .route('/:movieId/theaters')
   .get(controller.getMovieTheaters)

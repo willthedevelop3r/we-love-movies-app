@@ -1,4 +1,4 @@
-// ------- ERROR HANDLER FOR METHODS NOT ALLOWED ------- //
+// Error handler for methods not allowed
 function methodNotAllowed(req, res, next) {
   next({
     status: 405,

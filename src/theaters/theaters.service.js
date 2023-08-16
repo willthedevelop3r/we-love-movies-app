@@ -1,12 +1,12 @@
 const knex = require('../db/connection');
 
-// ------- RETRIEVES THEATERS JOINED BY MOVIES AND MOVIES_THEATERS ------- //
+// Retrieves theater joined by movies and movies_theaters
 function list() {
   return (
     knex('theaters')
       .select('*')
 
-      // ------- MAP THROUGH THEATERS, JOINING MOVIES AND MOVIES_THEATERS ------- //
+      // Map through theaters, joining movies and movies_theaters
       .then((theaters) => {
         const promises = theaters.map((theater) =>
           knex('movies')
@@ -20,7 +20,7 @@ function list() {
             .then((movies) => ({ ...theater, movies }))
         );
 
-        // ------- RETURN RESOLVED PROMISES ------- //
+        // Return resolved promises
         return Promise.all(promises);
       })
   );

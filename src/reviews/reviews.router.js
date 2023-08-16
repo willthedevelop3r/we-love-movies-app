@@ -3,7 +3,7 @@ const router = express.Router();
 const controller = require('./reviews.controller');
 const methodNotAllowed = require('../errors/methodNotAllowed');
 
-// ------ ROUTE FOR REVIEWS ------- //
+// Route for reviews
 router
   .route('/:reviewId')
   .put(controller.update)

@@ -1,25 +1,25 @@
 const knex = require('../db/connection');
 
-// ------- RETRIEVES PARTICULAR REVIEW ------ //
+// Retrieves particular review
 async function read(reviewId) {
   return knex('reviews').select('*').where({ review_id: reviewId }).first();
 }
 
-// ------ RETRIEVES UPDATED REVIEWS JOINED BY CRITICS TABLE ------- //
+// Retrieves updated reviews joined by critics table
 async function update(updatedReview) {
   return (
     knex('reviews')
       .where({ review_id: updatedReview.review_id })
       .update(updatedReview, '*')
 
-      // ------- JOIN CRITICS TABLE ------- //
+      // Join critics table
       .then(() =>
         knex('reviews')
           .select('reviews.*', 'critics.*')
           .join('critics', 'reviews.critic_id', 'critics.critic_id')
           .where({ 'reviews.review_id': updatedReview.review_id })
       )
-      // ------- THEN MAP THROUGH JOINED TABLE FOR DESIRED RESULTS ------- //
+      // Map through joined tables for desired results
       .then((reviews) =>
         reviews.map((review) => ({
           ...review,
@@ -33,12 +33,11 @@ async function update(updatedReview) {
           },
         }))
       )
-      // ------- RETURN DATA AT INDEX ZERO TO PULL OUT OF ARRAY ------- //
       .then((data) => data[0])
   );
 }
 
-// ------- DELETES REVIEW ------- //
+// Deletes review
 async function destroy(reviewId) {
   return knex('reviews').where({ review_id: reviewId }).del();
 }

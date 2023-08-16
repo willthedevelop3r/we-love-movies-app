@@ -1,13 +1,13 @@
 const service = require('../movies/movies.service');
 const asyncErrorBoundary = require('../errors/asyncErrorBoundary');
 
-// ------- GETS ALL MOVIES ------- //
+// Get all movies
 async function list(req, res, next) {
   const data = await service.getAllMovies(req.query.is_showing);
   res.status(200).json({ data: data });
 }
 
-// ------- GETS PARTICULAR MOVIE ------- //
+// Get particular movie
 async function read(req, res, next) {
   const data = await service.getMovieById(req.params.movieId);
   if (!data) {
@@ -19,19 +19,19 @@ async function read(req, res, next) {
   res.status(200).json({ data: data });
 }
 
-// ------ GETS MOVIE THEATERS ------ //
+// Get movie theater
 async function getMovieTheaters(req, res) {
   const data = await service.getMovieTheaters(req.params.movieId);
   res.status(200).json({ data: data });
 }
 
-// ------- GETS MOVIE REVIEWS ------- //
+// Get movie reviews
 async function getMovieReviews(req, res) {
   const data = await service.getMovieReviews(req.params.movieId);
   res.status(200).json({ data: data });
 }
 
-// ------ EXPORT FUNCTIONS ------- //
+// Export functions
 module.exports = {
   list: asyncErrorBoundary(list),
   read: asyncErrorBoundary(read),

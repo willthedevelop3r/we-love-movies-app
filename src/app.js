@@ -9,7 +9,7 @@ const theatersRouter = require('./theaters/theaters.router');
 
 if (process.env.USER) require('dotenv').config();
 
-// ------- MIDDLEWARE FOR JSON PARSING AND CORS HANDLING ------- //
+// Middleware for json parsing and cors handling
 app.use(express.json());
 app.use(cors());
 
@@ -17,12 +17,12 @@ app.get('/', (req, res) => {
   res.sendStatus(200);
 });
 
-// ------- ROUTES -------- //
+// Routes
 app.use('/movies', moviesRouter);
 app.use('/reviews', reviewsRouter);
 app.use('/theaters', theatersRouter);
 
-// ------- ERROR HANDLERS ------- //
+// Error handlers
 app.use(notFound);
 app.use(errorHandler);
 

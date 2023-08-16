@@ -1,6 +1,6 @@
 const knex = require('../db/connection');
 
-// ------- RETRIEVES MOVIES JOINED BY MOVIES_THEATERS ------- //
+// Retrieves movies joined by movies_theaters
 function getAllMovies(is_showing) {
   const query = knex('movies').select('movies.*');
 
@@ -14,12 +14,12 @@ function getAllMovies(is_showing) {
   return query;
 }
 
-// ------ RETRIEVES PARTICULAR MOVIES ------- //
+// Retrieves particular movie
 function getMovieById(movieId) {
   return knex('movies').select('*').where({ movie_id: movieId }).first();
 }
 
-// ------- RETRIEVES THEATERS JOINED BY MOVIES_THEATERS ------- //
+// Retrieves theater joined by movies_theater
 function getMovieTheaters(movieId) {
   return knex('theaters')
     .select('theaters.*')
@@ -31,7 +31,7 @@ function getMovieTheaters(movieId) {
     .where({ 'movies_theaters.movie_id': movieId });
 }
 
-// ------- REVIEWS JOINED BY CRITICS TABLE ------- //
+// Reviews joined by critics table
 function getMovieReviews(movieId) {
   return (
     knex('reviews')
@@ -39,7 +39,7 @@ function getMovieReviews(movieId) {
       .join('critics', 'reviews.critic_id', 'critics.critic_id')
       .where('reviews.movie_id', movieId)
 
-      // ------- MAP THROUGH JOINED TABLE FOR DESIRED RESULTS ------- //
+      // Map through joined tables for desired results
       .then((reviews) =>
         reviews.map((review) => ({
           ...review,

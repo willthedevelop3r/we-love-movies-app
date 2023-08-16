@@ -1,4 +1,5 @@
-// ------- ERROR HANDLER TO WRAP ASYNC FUNCTIONS -------//
+// Error handler to wrap async functions
+
 function asyncErrorBoundary(delegate, defaultStatus) {
   return (request, response, next) => {
     Promise.resolve()
